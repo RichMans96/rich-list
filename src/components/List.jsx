@@ -1,43 +1,65 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Person from "./Person";
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import "./List.css";
 
-class List extends Component {
-  state = {
-    people: [],
-    isLoading: true,
-  };
+const List = (props) => {
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 700,
+    },
+  });
 
-  componentDidMount() {
-    this.getForbesData();
-  }
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
 
-  getForbesData = () => {
-    axios.get("https://forbes400.herokuapp.com/api/forbes400?limit=10").then(({ data }) => {
-      this.setState({
-        people: data,
-        isLoading: false,
-      });
-    });
-  };
+  const classes = useStyles();
 
-  render() {
-    return (
-      <main>
-        {this.state.people.map((person) => {
-          return (
-            <Person
-              key={person.rank}
-              name={person.personName}
-              source={person.source}
-              gender={person.gender}
-              worth={person.finalWorth}
-            />
-          );
-        })}
-      </main>
-    );
-  }
-}
+  return (
+    <TableContainer component={Paper} className="container">
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead className="header">
+          <TableRow>
+            <TableCell>Rank</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">Source</TableCell>
+            <TableCell align="left">Industries</TableCell>
+            <TableCell align="left">Worth</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {props.people.map((person) => (
+            <StyledTableRow key={person.rank}>
+              <TableCell component="th" scope="row">
+                {person.rank}
+              </TableCell>
+              <TableCell align="left">{person.personName}</TableCell>
+              <TableCell align="left">{person.source}</TableCell>
+              <TableCell align="left">{person.industries[0]}</TableCell>
+              <TableCell align="left">
+                $
+                {person.finalWorth.toString().length < 10
+                  ? person.finalWorth.toString().substring(0, 3) / 10
+                  : person.finalWorth.toString().substring(0, 3)}
+                B
+              </TableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
 
 export default List;

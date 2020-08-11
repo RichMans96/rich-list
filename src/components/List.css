@@ -1,0 +1,13 @@
+.container {
+  position: absolute;
+  height: 585px;
+  width: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.header {
+  background-color: #e3f2fd;
+}
