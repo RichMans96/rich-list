@@ -31,10 +31,10 @@ const List = (props) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead className="header">
           <TableRow>
-            <TableCell>Rank</TableCell>
+            <TableCell align="left">Rank</TableCell>
             <TableCell align="left">Name</TableCell>
             <TableCell align="left">Source</TableCell>
-            <TableCell align="left">Industries</TableCell>
+            <TableCell align="left">Industrie(s)</TableCell>
             <TableCell align="left">Worth</TableCell>
           </TableRow>
         </TableHead>
@@ -47,13 +47,7 @@ const List = (props) => {
               <TableCell align="left">{person.personName}</TableCell>
               <TableCell align="left">{person.source}</TableCell>
               <TableCell align="left">{person.industries[0]}</TableCell>
-              <TableCell align="left">
-                $
-                {person.finalWorth.toString().length < 10
-                  ? person.finalWorth.toString().substring(0, 3) / 10
-                  : person.finalWorth.toString().substring(0, 3)}
-                B
-              </TableCell>
+              <TableCell align="left">${person.finalWorth}B</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
