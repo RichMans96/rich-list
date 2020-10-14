@@ -34,7 +34,7 @@ const List = (props) => {
             <TableCell align="left">Rank</TableCell>
             <TableCell align="left">Name</TableCell>
             <TableCell align="left">Source</TableCell>
-            <TableCell align="left">Industrie(s)</TableCell>
+            <TableCell align="left">Industry(s)</TableCell>
             <TableCell align="left">Worth</TableCell>
           </TableRow>
         </TableHead>
